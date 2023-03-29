@@ -54,13 +54,13 @@ Start a stream to listen for LWA login and logout events.
 
 ### Methods
 
-**signIn()**
+**signIn(scopes)**
 
 ```
-await _lwaPlugin.signIn();
+await _lwaPlugin.signIn(scopes: ["profile"]);
 ```
 
-Begins the authentication process with Login With Amazon.
+Begins the authentication process with Login With Amazon.  Accepts an optional array of scopes.
 
 **signOut()**
 

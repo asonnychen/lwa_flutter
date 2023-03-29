@@ -34,7 +34,11 @@ class _MyAppState extends State<MyApp> {
   // sign in to amazon
   Future<void> signIn() async {
     try {
-      await _lwaPlugin.signIn();
+      // pass an optional array of scopes
+      // https://developer.amazon.com/docs/login-with-amazon/requesting-scopes-as-essential-voluntary.html
+      // var scopes = ['profile', 'postal_code'];
+      var scopes = ['profile'];
+      await _lwaPlugin.signIn(scopes: scopes);
     } catch (e, s) {
       print(e);
       print(s);
@@ -83,22 +87,6 @@ class _MyAppState extends State<MyApp> {
         default:
           print(event);
       }
-      /**
-      if (event.keys.first == "loginSuccess") {
-        var data = event.values.first;
-        var json = jsonDecode(data);
-        setState(() {
-          isLoggedIn = true;
-          user = json;
-        });
-      } else if (event.keys.first == "logoutSuccess") {
-        setState(() {
-          isLoggedIn = false;
-        });
-      } else {
-        print(event.keys.first);
-        print(event.values.first);
-      }**/
     });
   }
 

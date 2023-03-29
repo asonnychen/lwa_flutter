@@ -8,8 +8,8 @@ class MethodChannelLwa extends LwaPlatform {
   final methodChannel = const MethodChannel('lwa');
 
   @override
-  Future<String?> signIn() async {
-    final response = await methodChannel.invokeMethod<String>('signIn');
+  Future<String?> signIn({required List scopes}) async {
+    final response = await methodChannel.invokeMethod<String>('signIn', {'scopes': scopes});
     return response;
   }
 

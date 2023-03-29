@@ -1,11 +1,11 @@
-
 import 'lwa_method_channel.dart';
 
 class Lwa {
   var channel = MethodChannelLwa();
 
-  Future<String?> signIn() {
-    return channel.signIn();
+  Future<String?> signIn({List? scopes}) {
+    scopes ??= ['profile'];
+    return channel.signIn(scopes: scopes);
   }
 
   Future<String?> signOut() {

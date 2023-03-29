@@ -17,8 +17,8 @@ abstract class LwaPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> signIn() async {
-    final response = await _instance.signIn();
+  Future<String?> signIn({required List scopes}) async {
+    final response = await _instance.signIn(scopes: scopes);
     return response;
   }
 
