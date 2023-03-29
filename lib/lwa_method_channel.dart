@@ -9,6 +9,7 @@ class MethodChannelLwa extends LwaPlatform {
   final methodChannel = const MethodChannel('lwa');
 
   @override
+
   /// signIn(scopes)
   /// Logs the user in to the Amazon service
   /// Accepts an optional array of scopes and returns a string
@@ -19,6 +20,7 @@ class MethodChannelLwa extends LwaPlatform {
   }
 
   @override
+
   /// signOut()
   /// Logs the user out of the Amazon service and expires their token
   /// Returns a string
