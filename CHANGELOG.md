@@ -1,3 +1,4 @@
-## 0.0.3
+## 0.0.4
 
-* Added dartdoc comments
+* Clarified some instructions for Android
+* Modified the instructions for iOS
