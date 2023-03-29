@@ -1,4 +1,3 @@
-## 0.0.2
+## 0.0.3
 
-* Added ability for user to set `scopes` with signIn method [see more](https://developer.amazon.com/docs/login-with-amazon/requesting-scopes-as-essential-voluntary.html)
-* Updated README and Dart formatting
+* Added dartdoc comments
