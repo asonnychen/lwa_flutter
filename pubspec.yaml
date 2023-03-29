@@ -1,7 +1,10 @@
 name: lwa
-description: A new Flutter plugin project.
+description:  LWA implements Login With Amazon over iOS (Swift) and Android 
+  (Kotlin).
 version: 0.0.1
-homepage:
+homepage: https://firedance.io
+authors:
+  - Firedance Multimedia LLC
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
