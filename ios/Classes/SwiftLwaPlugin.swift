@@ -9,11 +9,13 @@ struct LoginResponse: Codable {
     var email: String
     var name: String
     var eventName: String
+    var postalCode: String?
 }
 
 public class SwiftLwaPlugin: NSObject, AMZNLWAAuthenticationDelegate, FlutterPlugin  {
     var accessToken = ""
     var eventChannelHandler: EventChannelHandler?
+    var scopes = [String]()
     
     public static func register(with registrar: FlutterPluginRegistrar) {
         let instance = SwiftLwaPlugin()
@@ -32,6 +34,8 @@ public class SwiftLwaPlugin: NSObject, AMZNLWAAuthenticationDelegate, FlutterPlu
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
             case "signIn":
+                let arguments = call.arguments as! [String: Any]
+                scopes = arguments["scopes"] as! Array<String>
                 signIn(result: result)
             case "signOut":
                 signOut()
@@ -57,7 +61,7 @@ public class SwiftLwaPlugin: NSObject, AMZNLWAAuthenticationDelegate, FlutterPlu
     public func requestDidSucceed(_ apiResult: APIResult!) {
         switch (apiResult.api) {
             case API.authorizeUser:
-                AMZNLWAMobileLib.getAccessToken(forScopes: ["profile"], withOverrideParams: nil, delegate: self)
+                AMZNLWAMobileLib.getAccessToken(forScopes: scopes, withOverrideParams: nil, delegate: self)
             case API.getAccessToken:
                 guard let LWAtoken = apiResult.result as? String else { return }
                 accessToken = LWAtoken
@@ -91,7 +95,7 @@ public class SwiftLwaPlugin: NSObject, AMZNLWAAuthenticationDelegate, FlutterPlu
                 }
             case API.clearAuthorizationState:
                 do {
-                    var response = LoginResponse(
+                    let response = LoginResponse(
                         user_id: "",
                         accessToken: "",
                         email: "",
@@ -121,7 +125,7 @@ public class SwiftLwaPlugin: NSObject, AMZNLWAAuthenticationDelegate, FlutterPlu
 
     //override
     public func requestDidFail(_ errorResponse: APIError!) {
-        print("Error: \(errorResponse.error.message ?? "nil")")
+        self.eventChannelHandler?.error(code: "loginFailure", message: errorResponse.error.message)
     }
     
     public func signIn(result: FlutterResult) {

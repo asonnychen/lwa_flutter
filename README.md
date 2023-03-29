@@ -16,6 +16,7 @@ License:  **MIT License**
 - Visit [the Amazon Developer Console](https://developer.amazon.com/apps-and-games/login-with-amazon)
 - Register your iOS app including the bundle ID for your application
 - In your `Info.plist` set a key/value pair called apiKey (see example)
+- Add your CFBundleURLTypes key to the iOS Properties file.  Include the bundle ID of your application, and update the URL Scheme to `amzn-your.bundle.id` (see example)
 - Enter the apiKey provided by the Amazon Developer Console
 
 ## Android Setup Instructions
@@ -54,13 +55,13 @@ Start a stream to listen for LWA login and logout events.
 
 ### Methods
 
-**signIn()**
+**signIn(scopes)**
 
 ```
-await _lwaPlugin.signIn();
+await _lwaPlugin.signIn(scopes: ["profile"]);
 ```
 
-Begins the authentication process with Login With Amazon.
+Begins the authentication process with Login With Amazon.  Accepts an optional array of scopes.
 
 **signOut()**
 

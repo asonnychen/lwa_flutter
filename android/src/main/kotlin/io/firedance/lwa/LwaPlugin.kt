@@ -35,7 +35,8 @@ class LoginResponse(
   private val user_id: String?,
   private val email: String?,
   private val name: String?,
-  private val accessToken: String?
+  private val accessToken: String?,
+  private val postalCode: String?
 )
 
 /** LwaPlugin */
@@ -45,6 +46,7 @@ class LwaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   private var eventChannelHandler: EventChannelHandler? = null
   private val EVENT_CHANNEL = "lwa.authentication"
   private lateinit var activity: Activity
+  private lateinit var scopes: List<String>
 
   private lateinit var requestContext: RequestContext
 
@@ -61,6 +63,7 @@ class LwaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "signIn") {
+      scopes = call.argument("scopes")!!
       return signIn(result)
     }
     if(call.method == "signOut") {
@@ -99,7 +102,8 @@ class LwaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             result.user.userId,
             result.user.userEmail,
             result.user.userName,
-            result.accessToken
+            result.accessToken,
+            result.user.userPostalCode
           )))
         }
       }
@@ -108,6 +112,7 @@ class LwaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         activity.runOnUiThread {
           broadcastError( buildJson(LoginResponse(
             "loginError",
+            null,
             null,
             null,
             null,
@@ -125,6 +130,7 @@ class LwaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
               null,
               null,
               null,
+              null
             )
           ))
         }
@@ -133,11 +139,18 @@ class LwaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
   }
 
   fun signIn(@NonNull result: Result) {
+    val builder = AuthorizeRequest
+            .Builder(requestContext)
+
+    builder.addScope(ProfileScope.profile())
+    if(scopes.contains("postal_code")) {
+      builder.addScope(ProfileScope.postalCode())
+    }
+
+    val authorizeRequest: AuthorizeRequest = builder.build()
+
     AuthorizationManager
-      .authorize(AuthorizeRequest
-        .Builder(requestContext)
-        .addScopes(ProfileScope.profile())
-        .build())
+      .authorize(authorizeRequest)
     result.success("ok")
   }
 
@@ -152,6 +165,7 @@ class LwaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
               null,
               null,
               null,
+              null
             )))
           }
         }
@@ -162,6 +176,7 @@ class LwaPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             null,
             null,
             null,
+            null
           )))
         }
       })
