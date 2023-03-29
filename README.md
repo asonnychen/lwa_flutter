@@ -15,9 +15,9 @@ License:  **MIT License**
 ## iOS Setup Instructions
 - Visit [the Amazon Developer Console](https://developer.amazon.com/apps-and-games/login-with-amazon)
 - Register your iOS app including the bundle ID for your application
-- In your `Info.plist` set a key/value pair called apiKey (see example)
-- Add your CFBundleURLTypes key to the iOS Properties file.  Include the bundle ID of your application, and update the URL Scheme to `amzn-your.bundle.id` (see example)
+- In your `Info.plist` set a key/value pair called apiKey (see example Info.plist)
 - Enter the apiKey provided by the Amazon Developer Console
+- Add your CFBundleURLTypes key to the iOS Properties file.  Include the bundle ID of your application, and update the URL Scheme to `amzn-your.bundle.id` (see example Info.plist)
 
 ## Android Setup Instructions
 - Visit [the Amazon Developer Console](https://developer.amazon.com/apps-and-games/login-with-amazon)
@@ -34,6 +34,24 @@ $ keytool -v -list -keystore /path/to/debug.keystore
 ```
 - In the `/andrid/app/src/main` directory, add an `assets` folder and paste the api key into a file
 - Ensure the api key matches with no extra whitespace and name the file `api_key.txt` (see example android folder)
+- Add the Login With Amazon workflow to your `AndroidManifest.xml` file
+
+```
+      <activity android:name="com.amazon.identity.auth.device.workflow.WorkflowActivity"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:allowTaskReparenting="true"
+            android:launchMode="singleTask"
+            android:exported="true"
+        >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <!-- android:host must use the full package name found in Manifest General Attributes -->
+                <data android:host="${applicationId}" android:scheme="amzn"/>
+            </intent-filter>
+        </activity>
+```
 
 ## Documentation
 
