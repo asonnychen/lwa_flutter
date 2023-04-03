@@ -32,7 +32,7 @@ sed 's/[a-fA-F0-9][a-fA-F0-9]/&:/g; s/:$//'
 ```
 $ keytool -v -list -keystore /path/to/debug.keystore
 ```
-- In the `/andrid/app/src/main` directory, add an `assets` folder and paste the api key into a file
+- In the `/android/app/src/main` directory, add an `assets` folder and paste the api key into a file
 - Ensure the api key matches with no extra whitespace and name the file `api_key.txt` (see example android folder)
 - Add the Login With Amazon workflow to your `AndroidManifest.xml` file
 
