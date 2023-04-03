@@ -1,4 +1,3 @@
-## 0.0.4
+## 0.0.5
 
-* Clarified some instructions for Android
-* Modified the instructions for iOS
+* Fixed a typo for the Android src path in the README
