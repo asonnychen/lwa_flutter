@@ -1,3 +1,3 @@
-## 0.0.5
+## 0.0.6
 
-* Fixed a typo for the Android src path in the README
+* Addressed an issue where LWA would not launch in the iOS Simulator app on M1 chips
