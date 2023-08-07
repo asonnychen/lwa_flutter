@@ -1,11 +1,11 @@
 name: lwa
 description:  LWA implements Login With Amazon over iOS (Swift) and Android 
   (Kotlin).
-version: 0.0.6
+version: 0.0.7
 homepage: https://github.com/firedancellc/lwa_flutter
 
 environment:
-  sdk: '>=2.18.4 <3.0.0'
+  sdk: '>=2.18.4 <4.0.0'
   flutter: ">=2.5.0"
 
 dependencies:

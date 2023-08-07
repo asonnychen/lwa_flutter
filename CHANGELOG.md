@@ -1,3 +1,4 @@
-## 0.0.6
+## 0.0.7
 
-* Addressed an issue where LWA would not launch in the iOS Simulator app on M1 chips
+* Addressed an issue where LWA would cause a crash when used with other plugins
+* Updated Dart SDK constraint
